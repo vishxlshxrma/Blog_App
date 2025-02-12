@@ -1,9 +1,47 @@
 {% extends 'main.html' %}
-
+<head>
+    <link rel="stylesheet" href="./registerStyle.css">
+</head>
 {% block title %}
 <title>Register</title>
 {%endblock title %}
 
 {% block body %}
-<h1>Register Page</h1>
+<h1 class="text-center my-5">Register Page</h1>
+
+<form class="my-5">
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="formFirstName">First Name</label>
+        <input type="text" class="form-control" id="formFirstName" placeholder="First Name">
+      </div><br>
+      <div class="form-group col-md-3">
+        <label for="formLastName">Last Name</label>
+        <input type="text" class="form-control" id="formLastName" placeholder="Last Name">
+      </div><br>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="formUsername">Enter a Username.</label>
+        <input type="text" class="form-control" id="formUsername" placeholder="Enter Your Username.">
+      </div><br>
+    <div class="form-group col-md-6">
+      <label for="formEmail">Email Address</label>
+      <input type="email" class="form-control" id="formEmail" placeholder="Enter Your Email Address">
+    </div><br>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="formPassword">Create a Password</label>
+        <input type="password" class="form-control" id="formPassword" placeholder="Create a Password">
+      </div><br>
+      <div class="form-group col-md-3">
+        <label for="formConfirmPassword">Confirm Your Password</label>
+        <input type="password" class="form-control" id="formConfirmPassword" placeholder="Confirm Your Password">
+      </div>
+    </div>
+    <div class="form-group">
+        <br>
+    </div>
+    <button type="submit" class="btn btn-primary">Register User</button>
+  </form>
+
 {% endblock body %}
