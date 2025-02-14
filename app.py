@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect
 from flask_sqlalchemy import SQLAlchemy 
+from flask_login import login_manager, login_user, UserMixin, LoginManager
 
 app = Flask(__name__)
 
@@ -8,7 +9,10 @@ app.config['SECRET_KEY'] = 'thisIsSecretKey'
 
 db = SQLAlchemy(app)
 
-class User(db.Model):
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(80), unique = True, nullable = False)
     email = db.Column(db.String(120), unique = True, nullable = False)
@@ -18,6 +22,10 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 @app.route("/")
 def home():
@@ -46,8 +54,20 @@ def register():
 
     return render_template("register.html")
 
-@app.route("/login")
+@app.route("/login", methods=["GET","POST"])
 def login():
+    if request.method == "POST":
+        username = request.form.get("formUsername")
+        password = request.form.get("formPassword")
+        
+        user = User.query.filter_by(username = username).first()
+        if user and password == user.password:
+            login_user(user)
+            return redirect("/")
+        else:
+            flash("Invalid Credentials", "warning")
+            return redirect("/login")
+
     return render_template("login.html")
 
 if __name__ == "__main__":
