@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect
 from flask_sqlalchemy import SQLAlchemy 
 
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
+app.config['SECRET_KEY'] = 'thisIsSecretKey'
+
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -38,7 +40,9 @@ def register():
         user = User(username = username, email = email, firstName = firstName, lastName = lastName, password = password)
         db.session.add(user)
         db.session.commit()
-        return ("User Registered Succesfully.")
+        
+        flash("User has been Registered Successfully.", "success")
+        return redirect("/login")
 
     return render_template("register.html")
 
