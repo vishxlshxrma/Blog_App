@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+{% block title %}
+<title>Blog</title>
+{%endblock title %}
+
+{% block body %}
+<h1 class="text-center">Blog Page</h1>
+<br><br>
+<form>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">Blog Title</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Blog Title" name="blogTitle">
+    </div>
+    <br>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Blog Content</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="blogContent"></textarea>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Blog Author</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Blog Author" name="blogAuthor">
+      </div>
+      <br><br>
+    <input type="submit" value="POST" class="btn btn-primary">
+  </form>
+
+{% endblock body %}
