@@ -5,7 +5,23 @@
 {%endblock title %}
 
 {% block body %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+            <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                <strong>Message:</strong> {{message}}
+            </div>
+
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
 <h1 class="text-center">Home Page</h1>
+
+<div class="row mb-2">
 
 {% for blog in data %}
 
@@ -22,5 +38,7 @@
   </div>
 
 {% endfor %}
+
+</div>
 
 {% endblock body %}
