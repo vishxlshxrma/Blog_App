@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect
 from flask_sqlalchemy import SQLAlchemy 
-from flask_login import login_manager, login_user, UserMixin, LoginManager
+from flask_login import login_manager, login_user, UserMixin, LoginManager, logout_user
 
 app = Flask(__name__)
 
@@ -69,6 +69,11 @@ def login():
             return redirect("/login")
 
     return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)

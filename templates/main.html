@@ -24,12 +24,30 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
+
+            {% if current_user.is_authenticated %}
+
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="">{{current_user.username}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/blogPost">Post Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+            </li>
+
+            {% else %}
+
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/login">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/register">Register</a>
             </li>
+
+            {% endif %}
+
           </ul>
         </div>
       </div>
