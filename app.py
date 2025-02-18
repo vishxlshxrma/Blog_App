@@ -101,5 +101,30 @@ def blogPost():
         return redirect("/")
     return render_template("blog.html")
 
+@app.route("/blogDetail/<int:id>", methods = ["GET","POST"])
+def blogDetail(id):
+    blog = Blog.query.get(id)
+    return render_template("blogDetail.html", blog=blog)
+
+@app.route("/delete/<int:id>", methods = ["GET","POST"])
+def blogDelete(id):
+    blog = Blog.query.get(id)
+    db.session.delete(blog)
+    db.session.commit()
+    flash("Your Blog has been Deleted.","success")
+    return redirect("/")
+
+@app.route("/edit/<int:id>", methods = ["GET","POST"])
+def editBlog(id):
+    blog = Blog.query.get(id)
+    if request.method == "POST":
+        blog.blogTitle = request.form.get("blogTitle")
+        blog.blogAuthor = request.form.get("blogAuthor")
+        blog.blogContent = request.form.get("blogContent")
+        db.session.commit()
+        flash("Post has been Edited Successfully.", "success")
+        return redirect("/")
+    return render_template("editBlog.html", blog=blog)
+
 if __name__ == "__main__":
     app.run(debug=True)
